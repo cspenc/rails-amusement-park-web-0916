@@ -1,20 +1,23 @@
 class SessionsController < ApplicationController
-
+  skip_before_action :require_login, only: [:new, :create, :index]
   def new
+
   end
 
   def create
-    session[:user_id] = params[:id]
-    if params[:id] == nil || params[:id].empty?
-      redirect_to '/login'
+    user = User.find_by(name: params[:user][:name])
+
+    if user.authenticate(params[:user][:password])
+      login(user)
+      redirect_to user_path(user)
     else
-      redirect_to '/'
+      render :new
     end
   end
 
   def destroy
-    session.delete :id
-    redirect_to '/login'
+    session.delete :user_id
+    redirect_to '/'
   end
 
 end

@@ -1,0 +1,11 @@
+<% @attractions.each do |attraction| %>
+  <p>Name: <%= attraction.name %> </p>
+  <p>Tickets: <%= attraction.tickets %> </p>
+  <p>Details:
+    <% if current_user.admin %>
+      <%= link_to "Show #{attraction.name}", attractions_path(attraction) %>
+    <% else %>
+      <%= link_to "Go on #{attraction.name}", attractions_path(attraction) %>
+    <% end %>
+  </p>
+<% end %>

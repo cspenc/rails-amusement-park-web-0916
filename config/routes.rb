@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :sessions
 
-  root to: "application#index"
+  root to: "sessions#index"
 
   get '/signin', to: 'sessions#new'
   get '/logout', to: 'sessions#destroy'
